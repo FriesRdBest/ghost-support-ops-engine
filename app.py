@@ -18,11 +18,11 @@ st.markdown("""
         margin-bottom: 0.5rem;
     }
     .metric-container {
-        border: 1px solid rgba(128, 128, 128, 0.2);
+        border: 1.5px solid #30cf43 !important;
         border-radius: 10px;
         padding: 16px;
         text-align: center;
-        background-color: rgba(128, 128, 128, 0.05);
+        background-color: rgba(48, 207, 67, 0.03);
         margin-bottom: 12px;
     }
     .metric-number {
@@ -34,14 +34,14 @@ st.markdown("""
         font-size: 0.8rem;
         text-transform: uppercase;
         letter-spacing: 0.05em;
-        opacity: 0.8;
+        opacity: 0.85;
         margin-top: 4px;
     }
     .content-card {
-        border: 1px solid rgba(128, 128, 128, 0.2);
+        border: 1.5px solid #30cf43 !important;
         border-radius: 10px;
         padding: 20px;
-        background-color: rgba(128, 128, 128, 0.04);
+        background-color: rgba(48, 207, 67, 0.03);
         margin-bottom: 20px;
     }
     .stButton>button {
@@ -87,7 +87,7 @@ if "db_conn" not in st.session_state:
 
 with st.sidebar:
     st.markdown("""
-    <div style="background-color: #15171a; padding: 12px 16px; border-radius: 8px; margin-bottom: 16px; display: inline-block; border: 1px solid rgba(255, 255, 255, 0.1);">
+    <div style="background-color: #15171a; padding: 12px 16px; border-radius: 8px; margin-bottom: 16px; display: inline-block; border: 1.5px solid #30cf43;">
         <img src="https://ghost.org/images/logos/ghost-logo-light.webp" style="width: 120px; display: block;" alt="Ghost Logo" />
     </div>
     """, unsafe_allow_html=True)
@@ -233,6 +233,26 @@ elif navigation_choice == "Grounded Support Intelligence":
             
             st.markdown("#### Grounding Source")
             st.caption("Verified against Ghost Core Architecture and Email Subsystem Documentation")
+            
+        elif "member tiers" in selected_query:
+            st.markdown("#### Engineering Verification")
+            st.write("Ghost synchronizes membership status via Stripe webhook event listeners for invoice payment succeeded and customer subscription updated. If an invoice payment fails, Stripe enters retry logic while Ghost maintains the tier until the subscription status changes to past due or canceled.")
+            
+            st.markdown("#### Recommended Action")
+            st.write("Inspect Stripe customer portal logs to verify webhook delivery status and retry schedules. Reconcile any missing events using the Support Operations Stripe reconciliation tool before modifying member records manually.")
+            
+            st.markdown("#### Grounding Source")
+            st.caption("Verified against Ghost Members API and Stripe Webhook Lifecycle Documentation")
+            
+        elif "SSL certificate" in selected_query:
+            st.markdown("#### Engineering Verification")
+            st.write("Ghost Pro automates SSL certificate issuance and renewal via Lets Encrypt and Cloudflare edge proxies. Failures typically occur when CAA records block Lets Encrypt or when custom DNS A records bypass the designated Ghost Pro proxy IP.")
+            
+            st.markdown("#### Recommended Action")
+            st.write("Verify the publisher DNS records point directly to the designated Ghost Pro CNAME or A record. Ensure CAA records either include letsencrypt.org or are completely omitted to allow automated certificate provisioning.")
+            
+            st.markdown("#### Grounding Source")
+            st.caption("Verified against Ghost Pro Infrastructure and Edge Routing Documentation")
 
 elif navigation_choice == "Strategic Operations Roadmap":
     st.markdown('<div class="ghost-header">Strategic Support Operations Roadmap</div>', unsafe_allow_html=True)
