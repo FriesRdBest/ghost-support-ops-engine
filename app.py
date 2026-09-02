@@ -11,6 +11,30 @@ st.set_page_config(
 
 st.markdown("""
 <style>
+    .ghost-logo-light {
+        display: none;
+        width: 140px;
+        margin-bottom: 12px;
+    }
+    .ghost-logo-dark {
+        display: block;
+        width: 140px;
+        margin-bottom: 12px;
+    }
+    @media (prefers-color-scheme: light) {
+        .ghost-logo-light {
+            display: block !important;
+        }
+        .ghost-logo-dark {
+            display: none !important;
+        }
+    }
+    [data-theme="light"] .ghost-logo-light {
+        display: block !important;
+    }
+    [data-theme="light"] .ghost-logo-dark {
+        display: none !important;
+    }
     .ghost-header {
         font-size: 2.2rem;
         font-weight: 800;
@@ -86,7 +110,11 @@ if "db_conn" not in st.session_state:
     st.session_state.db_conn = init_mock_db()
 
 with st.sidebar:
-    st.image("https://cdn.homerun.co/49753/ghost-logo-turquoise-wh-021675267023logo.png", width=160)
+    st.markdown("""
+    <img src="https://ghost.org/images/logos/logo-black-1.webp" class="ghost-logo-light" alt="Ghost Logo" />
+    <img src="https://ghost.org/images/logos/ghost-logo-light.webp" class="ghost-logo-dark" alt="Ghost Logo" />
+    """, unsafe_allow_html=True)
+    
     st.markdown("### The Watchmaker Hub")
     st.write("Turning support operations into an engineering product for independent publishing.")
     st.divider()
