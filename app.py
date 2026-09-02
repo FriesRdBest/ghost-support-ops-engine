@@ -1,7 +1,6 @@
 import streamlit as st
 import sqlite3
 import datetime
-from typing import Dict, Any
 
 st.set_page_config(
     page_title="Ghost Support Operations Engine",
@@ -12,46 +11,46 @@ st.set_page_config(
 
 st.markdown("""
 <style>
-    .main {
-        background-color: #0d0f12;
-        color: #ffffff;
+    .ghost-header {
+        font-size: 2.2rem;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        margin-bottom: 0.5rem;
     }
-    .metric-card {
-        background-color: #15171a;
-        border: 1px solid #282c34;
-        border-radius: 8px;
+    .metric-container {
+        border: 1px solid rgba(128, 128, 128, 0.2);
+        border-radius: 10px;
         padding: 16px;
         text-align: center;
+        background-color: rgba(128, 128, 128, 0.05);
+        margin-bottom: 12px;
     }
-    .metric-val {
-        font-size: 24px;
+    .metric-number {
+        font-size: 1.6rem;
         font-weight: 700;
         color: #30cf43;
     }
-    .metric-label {
-        font-size: 13px;
-        color: #7c8b9a;
+    .metric-title {
+        font-size: 0.8rem;
         text-transform: uppercase;
+        letter-spacing: 0.05em;
+        opacity: 0.8;
         margin-top: 4px;
     }
-    .stButton>button {
-        background-color: #30cf43;
-        color: #000000;
-        font-weight: 600;
-        border: none;
-        border-radius: 6px;
-        padding: 8px 16px;
-    }
-    .stButton>button:hover {
-        background-color: #28b338;
-        color: #000000;
-    }
-    .card-box {
-        background-color: #15171a;
-        border: 1px solid #282c34;
-        border-radius: 8px;
+    .content-card {
+        border: 1px solid rgba(128, 128, 128, 0.2);
+        border-radius: 10px;
         padding: 20px;
+        background-color: rgba(128, 128, 128, 0.04);
         margin-bottom: 20px;
+    }
+    .stButton>button {
+        background-color: #30cf43 !important;
+        color: #000000 !important;
+        font-weight: 600 !important;
+        border: none !important;
+        border-radius: 6px !important;
+        padding: 8px 18px !important;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -87,10 +86,10 @@ if "db_conn" not in st.session_state:
     st.session_state.db_conn = init_mock_db()
 
 with st.sidebar:
-    st.image("https://ghost.org/images/ghost-logo-light.svg", width=140)
+    st.markdown("## Ghost")
     st.markdown("### The Watchmaker Hub")
-    st.markdown("Turning support operations into an engineering product for independent publishing.")
-    st.markdown("---")
+    st.write("Turning support operations into an engineering product for independent publishing.")
+    st.divider()
     
     navigation_choice = st.radio(
         "Operational Modules",
@@ -103,45 +102,40 @@ with st.sidebar:
         ]
     )
     
-    st.markdown("---")
-    st.markdown("**Environment:** Production Ready")
-    st.markdown("**Database:** SQLite Knex Emulation")
-    st.markdown("**Status:** Zero Hallucination Mode")
+    st.divider()
+    st.caption("Environment: Production Ready")
+    st.caption("Database: SQLite Knex Emulation")
+    st.caption("Status: Zero Hallucination Mode")
 
 if navigation_choice == "Mission and Telemetry":
-    st.title("Support Operations Telemetry")
-    st.markdown("A unified operational hub designed to eliminate recurring publisher friction, audit system health, and scale support while staying lean and human.")
+    st.markdown('<div class="ghost-header">Support Operations Telemetry</div>', unsafe_allow_html=True)
+    st.write("A unified operational hub designed to eliminate recurring publisher friction, audit system health, and scale support while staying lean and human.")
+    st.write("")
     
     col1, col2, col3, col4 = st.columns(4)
     with col1:
-        st.markdown('<div class="metric-card"><div class="metric-val">$11,099,649</div><div class="metric-label">Annual Run Rate</div></div>', unsafe_allow_html=True)
+        st.markdown('<div class="metric-container"><div class="metric-number">$11,099,649</div><div class="metric-title">Annual Run Rate</div></div>', unsafe_allow_html=True)
     with col2:
-        st.markdown('<div class="metric-card"><div class="metric-val">30,579</div><div class="metric-label">Active Publishers</div></div>', unsafe_allow_html=True)
+        st.markdown('<div class="metric-container"><div class="metric-number">30,579</div><div class="metric-title">Active Publishers</div></div>', unsafe_allow_html=True)
     with col3:
-        st.markdown('<div class="metric-card"><div class="metric-val">2.92%</div><div class="metric-label">Net Churn</div></div>', unsafe_allow_html=True)
+        st.markdown('<div class="metric-container"><div class="metric-number">2.92%</div><div class="metric-title">Net Churn</div></div>', unsafe_allow_html=True)
     with col4:
-        st.markdown('<div class="metric-card"><div class="metric-val">1 to 10,193</div><div class="metric-label">Support Ratio</div></div>', unsafe_allow_html=True)
+        st.markdown('<div class="metric-container"><div class="metric-number">1 to 10,193</div><div class="metric-title">Support Ratio</div></div>', unsafe_allow_html=True)
         
-    st.markdown("<br>", unsafe_allow_html=True)
+    st.write("")
     
-    st.markdown("""
-    <div class="card-box">
-        <h3>The Watchmaker Philosophy</h3>
-        <p>Support engineers stand at the frontline to guide publishers through challenges. Support operations engineers work behind the scenes to calibrate tools, eliminate root causes, and stop future tickets before they reach the queue.</p>
-        <p>By automating diagnostics and resolving edge case bugs directly in the Ghost codebase, we give support engineers their time back so they can deliver thoughtful, high touch service.</p>
-    </div>
-    """, unsafe_allow_html=True)
+    with st.container():
+        st.markdown("### The Watchmaker Philosophy")
+        st.write("Support engineers stand at the frontline to guide publishers through challenges. Support operations engineers work behind the scenes to calibrate tools, eliminate root causes, and stop future tickets before they reach the queue.")
+        st.write("By automating diagnostics and resolving edge case bugs directly in the Ghost codebase, we give support engineers their time back so they can deliver thoughtful, high touch service.")
 
 elif navigation_choice == "Stripe Member Reconciliation":
-    st.title("Stripe Subscription Reconciliation Engine")
-    st.markdown("Audit asynchronous Stripe webhook discrepancies against the Ghost members database and generate safe SQL remediation scripts.")
+    st.markdown('<div class="ghost-header">Stripe Subscription Reconciliation Engine</div>', unsafe_allow_html=True)
+    st.write("Audit asynchronous Stripe webhook discrepancies against the Ghost members database and generate safe SQL remediation scripts.")
     
-    st.markdown("""
-    <div class="card-box">
-        <h4>Simulated Incident: Dropped Stripe Webhook</h4>
-        <p>Stripe received a successful payment for Alex Rivera on plan <code>price_pro_annual</code>, but a network interruption prevented the webhook from updating Ghost. The database still lists the publisher as free with an incomplete subscription record.</p>
-    </div>
-    """, unsafe_allow_html=True)
+    with st.container():
+        st.markdown("#### Simulated Incident: Dropped Stripe Webhook")
+        st.write("Stripe received a successful payment for Alex Rivera on plan price_pro_annual, but a network interruption prevented the webhook from updating Ghost. The database still lists the publisher as free with an incomplete subscription record.")
     
     if st.button("Run Reconciliation Audit"):
         c = st.session_state.db_conn.cursor()
@@ -152,10 +146,10 @@ elif navigation_choice == "Stripe Member Reconciliation":
         
         col_a, col_b = st.columns(2)
         with col_a:
-            st.markdown(f"**Ghost Database State**")
+            st.markdown("**Ghost Database State**")
             st.code(f"Member Status: {row[1]}\nSubscription Status: {row[2]}\nPlan: {row[3]}", language="text")
         with col_b:
-            st.markdown(f"**Stripe Live State**")
+            st.markdown("**Stripe Live State**")
             st.code("Member Status: paid\nSubscription Status: active\nPlan: price_pro_annual", language="text")
             
         safe_sql = f"""BEGIN TRANSACTION;
@@ -178,8 +172,8 @@ COMMIT;"""
             st.success("Remediation executed successfully. Ghost database synchronized with Stripe.")
 
 elif navigation_choice == "Mailgun and DNS Diagnostics":
-    st.title("Mailgun Newsletter and DNS Health Engine")
-    st.markdown("Diagnose custom domain email records instantly and generate plain language setup instructions for publishers.")
+    st.markdown('<div class="ghost-header">Mailgun Newsletter and DNS Health Engine</div>', unsafe_allow_html=True)
+    st.write("Diagnose custom domain email records instantly and generate plain language setup instructions for publishers.")
     
     domain_input = st.text_input("Enter Publisher Custom Domain", value="theindependentdispatch.com")
     
@@ -190,7 +184,7 @@ elif navigation_choice == "Mailgun and DNS Diagnostics":
         dkim_check = st.checkbox("Simulate DKIM Record Configured", value=False)
         
     if st.button("Run Deliverability Audit"):
-        st.markdown("---")
+        st.divider()
         if spf_check and dkim_check:
             st.success("All DNS records are verified and configured correctly for bulk delivery.")
         else:
@@ -201,8 +195,7 @@ elif navigation_choice == "Mailgun and DNS Diagnostics":
             st.write("DKIM Record Status: " + ("Valid" if dkim_check else "Missing public key on k1._domainkey"))
             
             st.markdown("#### Publisher Friendly Guidance")
-            st.info("""
-Dear Publisher,
+            st.info("""Dear Publisher,
 
 We noticed your newsletter emails are currently encountering delivery issues. To resolve this, add this single DNS record inside your domain provider dashboard:
 
@@ -210,12 +203,11 @@ Type: TXT
 Name: k1._domainkey
 Value: k=rsa; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC3
 
-Once saved, DNS servers typically update within an hour and full email delivery will resume immediately.
-            """)
+Once saved, DNS servers typically update within an hour and full email delivery will resume immediately.""")
 
 elif navigation_choice == "Grounded Support Intelligence":
-    st.title("Grounded Support Intelligence")
-    st.markdown("Zero hallucination operational guidance grounded strictly in official Ghost architecture and engineering documentation.")
+    st.markdown('<div class="ghost-header">Grounded Support Intelligence</div>', unsafe_allow_html=True)
+    st.write("Zero hallucination operational guidance grounded strictly in official Ghost architecture and engineering documentation.")
     
     sample_queries = [
         "Can a publisher use custom SMTP for bulk newsletters on Ghost Pro?",
@@ -226,43 +218,31 @@ elif navigation_choice == "Grounded Support Intelligence":
     selected_query = st.selectbox("Select or enter a support inquiry", sample_queries)
     
     if st.button("Generate Verified Operational Guidance"):
-        st.markdown("---")
+        st.divider()
         if "custom SMTP" in selected_query:
             st.markdown("#### Engineering Verification")
-            st.markdown("Ghost Pro utilizes Mailgun for bulk newsletter delivery to protect sender reputation and manage delivery queues. Custom SMTP is only supported for transactional system messages such as login links and password resets.")
+            st.write("Ghost Pro utilizes Mailgun for bulk newsletter delivery to protect sender reputation and manage delivery queues. Custom SMTP is only supported for transactional system messages such as login links and password resets.")
             
             st.markdown("#### Recommended Action")
-            st.markdown("Guide the publisher to configure Mailgun API keys in their settings. If they require non Mailgun bulk delivery, inform them that this requires self hosting Ghost with a custom webhook server proxy.")
+            st.write("Guide the publisher to configure Mailgun API keys in their settings. If they require non Mailgun bulk delivery, inform them that this requires self hosting Ghost with a custom webhook server proxy.")
             
             st.markdown("#### Grounding Source")
             st.caption("Verified against Ghost Core Architecture and Email Subsystem Documentation")
 
 elif navigation_choice == "Strategic Operations Roadmap":
-    st.title("Strategic Support Operations Roadmap")
-    st.markdown("A phased engineering strategy to systematically reduce incoming ticket volume while empowering the human support team.")
+    st.markdown('<div class="ghost-header">Strategic Support Operations Roadmap</div>', unsafe_allow_html=True)
+    st.write("A phased engineering strategy to systematically reduce incoming ticket volume while empowering the human support team.")
     
     col1, col2, col3 = st.columns(3)
     with col1:
-        st.markdown("""
-        <div class="card-box">
-            <h4>Days 1 to 30</h4>
-            <p><strong>Audit and Tooling</strong></p>
-            <p>Audit Front inbox routing rules and categorize repeat ticket volume. Build automated Stripe reconciliation scripts to resolve billing state mismatches.</p>
-        </div>
-        """, unsafe_allow_html=True)
+        st.markdown("### Days 1 to 30")
+        st.markdown("**Audit and Tooling**")
+        st.write("Audit Front inbox routing rules and categorize repeat ticket volume. Build automated Stripe reconciliation scripts to resolve billing state mismatches.")
     with col2:
-        st.markdown("""
-        <div class="card-box">
-            <h4>Days 31 to 60</h4>
-            <p><strong>Linear and Core Fixes</strong></p>
-            <p>Implement two way webhook syncing between Front conversations and Linear engineering issues. Ship direct bug fixes in the Ghost repository for top recurring issues.</p>
-        </div>
-        """, unsafe_allow_html=True)
+        st.markdown("### Days 31 to 60")
+        st.markdown("**Linear and Core Fixes**")
+        st.write("Implement two way webhook syncing between Front conversations and Linear engineering issues. Ship direct bug fixes in the Ghost repository for top recurring issues.")
     with col3:
-        st.markdown("""
-        <div class="card-box">
-            <h4>Days 61 to 90</h4>
-            <p><strong>Grounded AI and Docs</strong></p>
-            <p>Deploy grounded internal drafting tools for support engineers. Publish comprehensive self serve guides for custom domain and DNS setup.</p>
-        </div>
-        """, unsafe_allow_html=True)
+        st.markdown("### Days 61 to 90")
+        st.markdown("**Grounded AI and Docs**")
+        st.write("Deploy grounded internal drafting tools for support engineers. Publish comprehensive self serve guides for custom domain and DNS setup.")
