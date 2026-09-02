@@ -4,7 +4,7 @@ import datetime
 
 st.set_page_config(
     page_title="Ghost Support Operations Engine",
-    page_icon="⚙️",
+    page_icon="https://careers.ghost.org/favicon.ico?v=1787587080",
     layout="wide",
     initial_sidebar_state="expanded"
 )
@@ -86,7 +86,7 @@ if "db_conn" not in st.session_state:
     st.session_state.db_conn = init_mock_db()
 
 with st.sidebar:
-    st.markdown("## Ghost")
+    st.image("https://cdn.homerun.co/49753/ghost-logo-turquoise-wh-021675267023logo.png", width=160)
     st.markdown("### The Watchmaker Hub")
     st.write("Turning support operations into an engineering product for independent publishing.")
     st.divider()
