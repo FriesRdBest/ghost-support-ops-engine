@@ -11,24 +11,6 @@ st.set_page_config(
 
 st.markdown("""
 <style>
-    /* CSS filter technique: auto-inverts dark logo to pure white in dark mode */
-    .ghost-adaptive-logo {
-        width: 140px;
-        margin-bottom: 12px;
-        filter: invert(1);
-    }
-    @media (prefers-color-scheme: light) {
-        .ghost-adaptive-logo {
-            filter: invert(0);
-        }
-    }
-    [data-theme="light"] .ghost-adaptive-logo {
-        filter: invert(0) !important;
-    }
-    [data-theme="dark"] .ghost-adaptive-logo {
-        filter: invert(1) !important;
-    }
-
     .ghost-header {
         font-size: 2.2rem;
         font-weight: 800;
@@ -105,7 +87,9 @@ if "db_conn" not in st.session_state:
 
 with st.sidebar:
     st.markdown("""
-    <img src="https://ghost.org/images/logos/logo-black-1.webp" class="ghost-adaptive-logo" alt="Ghost Logo" />
+    <div style="background-color: #15171a; padding: 12px 16px; border-radius: 8px; margin-bottom: 16px; display: inline-block; border: 1px solid rgba(255, 255, 255, 0.1);">
+        <img src="https://ghost.org/images/logos/ghost-logo-light.webp" style="width: 120px; display: block;" alt="Ghost Logo" />
+    </div>
     """, unsafe_allow_html=True)
     
     st.markdown("### The Watchmaker Hub")
