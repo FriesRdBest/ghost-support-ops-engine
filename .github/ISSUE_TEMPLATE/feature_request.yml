@@ -1,0 +1,44 @@
+name: Feature request
+description: Suggest an improvement to the Ghost Support Ops Engine
+labels: [enhancement]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for suggesting a feature. Please fill out the fields below.
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem or opportunity
+      description: What stakeholder, workflow, or decision-support problem would this address?
+    validations:
+      required: true
+  - type: textarea
+    id: outcome
+    attributes:
+      label: Proposed outcome
+      description: Describe the behavior or outcome you would like to see.
+    validations:
+      required: true
+  - type: textarea
+    id: value
+    attributes:
+      label: Why it matters
+      description: Explain the expected user, business, or operational value.
+    validations:
+      required: true
+  - type: textarea
+    id: approach
+    attributes:
+      label: Suggested approach
+      description: Optional implementation idea, example workflow, or reference.
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: What other approaches or workarounds have you considered?
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      description: Add screenshots, mockups, or supporting detail. Do not include confidential data.
